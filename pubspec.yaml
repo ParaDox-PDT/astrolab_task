@@ -1,71 +1,37 @@
-name: flutter_defualt_project
+name: file_download_tutorial
 description: A new Flutter project.
 
-publish_to: 'none'
-
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.5 <4.0.0'
-
-
+  sdk: '>=2.18.2 <3.0.0'
 dependencies:
   flutter:
     sdk: flutter
 
-
   cupertino_icons: ^1.0.2
-  flutter_svg: ^2.0.6
-  zoom_tap_animation: ^1.1.0
-  flutter_screenutil: ^5.8.4
-  change_app_package_name: ^1.1.0
-  shared_preferences: ^2.1.2
-  cached_network_image: ^3.2.3
-  sqflite: ^2.2.8+4
-  mask_text_input_formatter: ^2.4.0
-  lottie: ^2.6.0
-  dio: ^5.3.2
-  flutter_bloc: ^8.1.3
+  #file download packs
+  path_provider: ^2.0.11
+  dio: ^4.0.6
+  permission_handler: ^10.2.0
+  open_filex: ^4.3.2
+  equatable: ^2.0.5
+  flutter_bloc: ^8.1.1
+  flutter_charts: ^0.5.0
+  flutter_local_notifications: ^13.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  build_runner: ^2.4.6
-
   flutter_lints: ^2.0.0
 
 flutter:
 
   uses-material-design: true
 
-
   assets:
     - assets/images/
-    - assets/svg/
-    - assets/translations/
-
-
-  fonts:
-    - family: Poppins
-      fonts:
-        - asset: assets/fonts/Poppins/Montserrat-Black.ttf
-        - asset: assets/fonts/Poppins/Montserrat-BlackItalic.ttf
-        - asset: assets/fonts/Poppins/Montserrat-Bold.ttf
-        - asset: assets/fonts/Poppins/Montserrat-BoldItalic.ttf
-        - asset: assets/fonts/Poppins/Montserrat-ExtraBold.ttf
-        - asset: assets/fonts/Poppins/Montserrat-ExtraBoldItalic.ttf
-        - asset: assets/fonts/Poppins/Montserrat-ExtraLight.ttf
-        - asset: assets/fonts/Poppins/Montserrat-ExtraLightItalic.ttf
-        - asset: assets/fonts/Poppins/Montserrat-Italic.ttf
-        - asset: assets/fonts/Poppins/Montserrat-Light.ttf
-        - asset: assets/fonts/Poppins/Montserrat-LightItalic.ttf
-        - asset: assets/fonts/Poppins/Montserrat-Medium.ttf
-        - asset: assets/fonts/Poppins/Montserrat-MediumItalic.ttf
-        - asset: assets/fonts/Poppins/Montserrat-Regular.ttf
-        - asset: assets/fonts/Poppins/Montserrat-SemiBold.ttf
-        - asset: assets/fonts/Poppins/Montserrat-SemiBoldItalic.ttf
-        - asset: assets/fonts/Poppins/Montserrat-Thin.ttf
-        - asset: assets/fonts/Poppins/Montserrat-ThinItalic.ttf
-          style: italic

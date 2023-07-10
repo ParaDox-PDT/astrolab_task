@@ -1,49 +1,10 @@
+import 'package:file_download_tutorial/ui/chat_screen/chat_screen.dart';
+import 'package:file_download_tutorial/services/local_notification_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_defualt_project/cubits/login/login_cubit.dart';
-import 'package:flutter_defualt_project/data/network/api_service.dart';
-import 'package:flutter_defualt_project/presentation/app_routes.dart';
-import 'package:flutter_defualt_project/utils/theme.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'data/local/storage_repository/storage_repository.dart';
-import 'data/repositories/login_repository.dart';
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await StorageRepository.getInstance();
-
-  runApp(
-    App(
-      apiService: ApiService(),
-    ),
-  );
-}
-
-class App extends StatelessWidget {
-  const App({super.key, required this.apiService});
-
-  final ApiService apiService;
-
-  @override
-  Widget build(BuildContext context) {
-    return MultiRepositoryProvider(
-      providers: [
-        RepositoryProvider(
-          create: (context) => AuthRepository(apiService: apiService),
-        )
-      ],
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => LoginCubit(
-              authRepository: context.read<AuthRepository>(),
-            ),
-          ),
-        ],
-        child: const MyApp(),
-      ),
-    );
-  }
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -51,20 +12,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(375, 812),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (context, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: AppTheme.lightTheme,
-          darkTheme: AppTheme.darkTheme,
-          themeMode: ThemeMode.light,
-          initialRoute: RouteNames.splashScreen,
-          onGenerateRoute: AppRoutes.generateRoute,
-        );
-      },
+    final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+    // LocalNotificationService.localNotificationService.init(navigatorKey);
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: ChatScreen(),
     );
   }
 }
