@@ -17,15 +17,16 @@ class AuthRepository {
       {required String name,
       required String phone,
       required String username,
-      required String password}) async {
+      required String password,required String token}) async {
     return apiService.loginEdit(
-        name: name, phone: phone, username: username, password: password);
+        name: name, phone: phone, username: username, password: password,token: token);
   }
 
-  Future<UniversalData> getUser() async {
-    return apiService.getUser();
+  Future<UniversalData> getUser({required String token}) async {
+    return apiService.getUser(token: token);
   }
   String getToken() => StorageRepository.getString("tokens");
+  String getHomeToken() => StorageRepository.getString("token");
 
   Future<bool?> putToken(String token)async=>StorageRepository.putString("token", token);
   Future<bool?> putTokenInMain(String token)async=>StorageRepository.putString("tokens", token);

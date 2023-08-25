@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter_defualt_project/data/local/storage_repository/storage_repository.dart';
 import 'package:flutter_defualt_project/data/models/universal_response.dart';
 import 'package:meta/meta.dart';
 
@@ -13,7 +14,7 @@ class LoginCubit extends Cubit<LoginState> {
 
   Future<void> checkLoggedState() async {
     await Future.delayed(const Duration(seconds: 3));
-    if (authRepository.getToken().isEmpty) {
+    if (authRepository.getHomeToken().isEmpty) {
       emit(UnLoggedState());
     } else {
       emit(LoggedState());
@@ -22,7 +23,8 @@ class LoginCubit extends Cubit<LoginState> {
 
   Future<UniversalData> getUser() async {
     emit(LoginLoadingState());
-    UniversalData universalData = await authRepository.getUser();
+    UniversalData universalData = await authRepository.getUser(
+        token: StorageRepository.getString("tokens"));
     if (universalData.error.isEmpty) {
       emit(GetUserSuccessState());
       return universalData;
@@ -41,10 +43,10 @@ class LoginCubit extends Cubit<LoginState> {
       if (!universalData.data["status"]) {
         await authRepository
             .putTokenInMain(universalData.data["token"] as String);
-        emit(LoginSuccessHomeState());
+        emit(LoginSuccessState());
       } else {
         await authRepository.putToken(universalData.data["token"] as String);
-        emit(LoginSuccessState());
+        emit(LoginSuccessHomeState());
       }
     } else {
       emit(LoginErrorState(errorText: universalData.error));
@@ -55,10 +57,10 @@ class LoginCubit extends Cubit<LoginState> {
       {required String name,
       required String phone,
       required String username,
-      required String password}) async {
+      required String password,required String token}) async {
     emit(LoginLoadingState());
     UniversalData universalData = await authRepository.loginEdit(
-        name: name, phone: phone, username: username, password: password);
+        name: name, phone: phone, username: username, password: password,token: token);
     if (universalData.error.isEmpty) {
       emit(LoginEditSuccessState());
     } else {

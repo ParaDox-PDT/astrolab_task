@@ -111,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Navigator.pushReplacementNamed(context, RouteNames.homeScreen);
           }
           if (state is LoginSuccessState) {
-            Navigator.pushNamed(context, RouteNames.loginEditScreen);
+            Navigator.pushReplacementNamed(context, RouteNames.loginEditScreen);
           }
         },
       ),

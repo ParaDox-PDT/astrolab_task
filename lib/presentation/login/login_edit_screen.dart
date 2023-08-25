@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_defualt_project/cubits/login/login_cubit.dart';
+import 'package:flutter_defualt_project/data/local/storage_repository/storage_repository.dart';
 import 'package:flutter_defualt_project/data/models/universal_response.dart';
 import 'package:flutter_defualt_project/data/models/user_model/user_model.dart';
 import 'package:flutter_defualt_project/presentation/login/widgets/login_button.dart';
@@ -26,7 +27,7 @@ class LoginEditScreen extends StatefulWidget {
 class _LoginEditScreenState extends State<LoginEditScreen> {
   TextEditingController firstNameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
-  late TextEditingController usernameController;
+  TextEditingController usernameController=TextEditingController();
 
   TextEditingController passwordController = TextEditingController();
   bool isVisible = true;
@@ -34,8 +35,9 @@ class _LoginEditScreenState extends State<LoginEditScreen> {
   late UserModel userModel;
 
   _init()async{
-    universalData =await context.read<LoginCubit>().getUser();
+    universalData =await BlocProvider.of<LoginCubit>(context).getUser();
     userModel= universalData.data;
+
     usernameController.text = userModel.username;
     phoneController.text=userModel.phone;
     firstNameController.text=userModel.name;
@@ -112,10 +114,14 @@ class _LoginEditScreenState extends State<LoginEditScreen> {
                           onTap: () {
                             if (firstNameController.text.isNotEmpty) {
                               if (phoneController.text.isNotEmpty &&
-                                  phoneController.text.length == 19) {
+                                  phoneController.text.length == 13) {
                                 if (usernameController.text.isNotEmpty) {
                                   if (passwordController.text.isNotEmpty) {
+                                    debugPrint("USERNAME: ${usernameController.text}");
+                                    debugPrint("PHONE: ${phoneController.text}");
+                                    debugPrint("NAME: ${firstNameController.text}");
                                     context.read<LoginCubit>().loginEdit(
+                                      token: StorageRepository.getString("tokens"),
                                         name: firstNameController.text,
                                         phone: phoneController.text,
                                         username: usernameController.text,

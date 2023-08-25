@@ -54,12 +54,15 @@ class ApiService {
       response = await _dio.post("/auth/login",
           data: {"username": username, "password": password});
       if ((response.statusCode! >= 200) && (response.statusCode! < 300)) {
-        return UniversalData(data: {"token":response.data["token"],"status":response.data["status"]});
+        return UniversalData(data: {
+          "token": response.data["token"],
+          "status": response.data["status"]
+        });
       }
       return UniversalData(error: "Other Error");
     } on DioException catch (e) {
       if (e.response != null) {
-        return UniversalData(error: e.response!.data["message"]);
+        return UniversalData(error: e.response!.data["error"]);
       } else {
         return UniversalData(error: e.message!);
       }
@@ -72,19 +75,30 @@ class ApiService {
       {required String name,
       required String phone,
       required String username,
-      required String password}) async {
+      required String password,
+      required String token}) async {
     Response response;
-    String token = StorageRepository.getString("token");
     try {
       response = await _dio.post("/auth/users/first/edit",
-          options: Options(headers: {"Authorization": "Bearer Token:$token"}));
+          options: Options(
+            headers: {
+              "Authorization": "Bearer $token",
+              "Content-Type": "application/json"
+            },
+          ),
+          data: {
+            "name": name,
+            "phone": phone,
+            "username": username,
+            "password": password
+          });
       if ((response.statusCode! >= 200) && (response.statusCode! < 300)) {
         return UniversalData(data: PostUserModel.fromJson(response.data));
       }
       return UniversalData(error: "Other Error");
     } on DioException catch (e) {
       if (e.response != null) {
-        return UniversalData(error: e.response!.data["message"]);
+        return UniversalData(error: e.response!.data["error"].toString());
       } else {
         return UniversalData(error: e.message!);
       }
@@ -93,19 +107,22 @@ class ApiService {
     }
   }
 
-  Future<UniversalData> getUser() async {
+  Future<UniversalData> getUser({required String token}) async {
     Response response;
-    String token = StorageRepository.getString("token");
     try {
+      debugPrint("TOKEN: $token");
       response = await _dio.get("/auth/users/me",
-          options: Options(headers: {"Authorization": "Bearer Token:$token"}));
+          options: Options(headers: {
+            "Authorization": "Bearer $token",
+            "Content-Type": "application/json"
+          }));
       if ((response.statusCode! >= 200) && (response.statusCode! < 300)) {
         return UniversalData(data: UserModel.fromJson(response.data));
       }
       return UniversalData(error: "Other Error");
     } on DioException catch (e) {
       if (e.response != null) {
-        return UniversalData(error: e.response!.data["message"]);
+        return UniversalData(error: e.response!.data["detail"]);
       } else {
         return UniversalData(error: e.message!);
       }
