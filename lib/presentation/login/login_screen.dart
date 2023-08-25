@@ -37,70 +37,65 @@ class _LoginScreenState extends State<LoginScreen> {
           if (state is LoginLoadingState) {
             return const Center(child: CircularProgressIndicator());
           }
-          return SizedBox(
-            width: double.infinity,
-            child: Expanded(
-              child: ListView(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 14.w),
-                    child: Column(
-                      children: [
-                        104.ph,
-                        const LogoWidget(),
-                        16.ph,
-                        Text(
-                          "Welcome to ParaDox App !!!",
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium!
-                              .copyWith(fontWeight: FontWeight.w700),
-                        ),
-                        16.ph,
-                        Text(
-                          "Login to Continue",
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelLarge!
-                              .copyWith(color: AppColors.passiveTextColor),
-                        ),
-                        32.ph,
-                        GlobalTextField(
-                          hintText: "Username",
-                          controller: usernameController,
-                          textInputType: TextInputType.text,
-                          textInputAction: TextInputAction.next,
-                        ),
-                        16.ph,
-                        PasswordTextField(
-                            passwordController: passwordController),
-                        42.ph,
-                        ZoomTapAnimation(
-                          onTap: () {
-                            if (usernameController.text.isNotEmpty) {
-                              if (passwordController.text.isNotEmpty) {
-                                context.read<LoginCubit>().loginUser(
-                                    username: usernameController.text,
-                                    password: passwordController.text);
-                              } else {
-                                showErrorMessage(
-                                    message: "Password is empty!",
-                                    context: context);
-                              }
-                            } else {
-                              showErrorMessage(
-                                  message: "Username is empty!",
-                                  context: context);
-                            }
-                          },
-                          child: const LoginButton(),
-                        )
-                      ],
+          return ListView(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 14.w),
+                child: Column(
+                  children: [
+                    104.ph,
+                    const LogoWidget(),
+                    16.ph,
+                    Text(
+                      "Welcome to ParaDox App !!!",
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium!
+                          .copyWith(fontWeight: FontWeight.w700),
                     ),
-                  ),
-                ],
+                    16.ph,
+                    Text(
+                      "Login to Continue",
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelLarge!
+                          .copyWith(color: AppColors.passiveTextColor),
+                    ),
+                    32.ph,
+                    GlobalTextField(
+                      hintText: "Username",
+                      controller: usernameController,
+                      textInputType: TextInputType.text,
+                      textInputAction: TextInputAction.next,
+                    ),
+                    16.ph,
+                    PasswordTextField(
+                        passwordController: passwordController),
+                    42.ph,
+                    ZoomTapAnimation(
+                      onTap: () {
+                        if (usernameController.text.isNotEmpty) {
+                          if (passwordController.text.isNotEmpty) {
+                            context.read<LoginCubit>().loginUser(
+                                username: usernameController.text,
+                                password: passwordController.text);
+                          } else {
+                            showErrorMessage(
+                                message: "Password is empty!",
+                                context: context);
+                          }
+                        } else {
+                          showErrorMessage(
+                              message: "Username is empty!",
+                              context: context);
+                        }
+                      },
+                      child: const LoginButton(),
+                    )
+                  ],
+                ),
               ),
-            ),
+            ],
           );
         },
         listener: (context, state) {

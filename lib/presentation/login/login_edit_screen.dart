@@ -4,6 +4,7 @@ import 'package:flutter_defualt_project/cubits/login/login_cubit.dart';
 import 'package:flutter_defualt_project/data/local/storage_repository/storage_repository.dart';
 import 'package:flutter_defualt_project/data/models/universal_response.dart';
 import 'package:flutter_defualt_project/data/models/user_model/user_model.dart';
+import 'package:flutter_defualt_project/presentation/app_routes.dart';
 import 'package:flutter_defualt_project/presentation/login/widgets/login_button.dart';
 import 'package:flutter_defualt_project/presentation/login/widgets/logo.dart';
 import 'package:flutter_defualt_project/presentation/login/widgets/password_textfield.dart';
@@ -62,99 +63,93 @@ class _LoginEditScreenState extends State<LoginEditScreen> {
               child: CircularProgressIndicator(),
             );
           }
-          return SizedBox(
-            width: double.infinity,
-            child: Expanded(
-              child: ListView(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 14.w),
-                    child: Column(
-                      children: [
-                        104.ph,
-                        const LogoWidget(),
-                        16.ph,
-                        Text(
-                          "Welcome to ParaDox App !!!",
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium!
-                              .copyWith(fontWeight: FontWeight.w700),
-                        ),
-                        16.ph,
-                        Text(
-                          "Login Edit to Continue",
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelLarge!
-                              .copyWith(color: AppColors.passiveTextColor),
-                        ),
-                        32.ph,
-                        GlobalTextField(
-                            hintText: "First name",
-                            controller: firstNameController,
-                            textInputType: TextInputType.text,
-                            textInputAction: TextInputAction.next),
-                        16.ph,
-                        PhoneTextField(
-                          controller: phoneController,
-                        ),
-                        16.ph,
-                        GlobalTextField(
-                          hintText: "Username",
-                          controller: usernameController,
-                          textInputType: TextInputType.text,
-                          textInputAction: TextInputAction.next,
-                        ),
-                        16.ph,
-                        PasswordTextField(
-                            passwordController: passwordController),
-                        42.ph,
-                        ZoomTapAnimation(
-                          onTap: () {
-                            if (firstNameController.text.isNotEmpty) {
-                              if (phoneController.text.isNotEmpty &&
-                                  phoneController.text.length == 13) {
-                                if (usernameController.text.isNotEmpty) {
-                                  if (passwordController.text.isNotEmpty) {
-                                    debugPrint("USERNAME: ${usernameController.text}");
-                                    debugPrint("PHONE: ${phoneController.text}");
-                                    debugPrint("NAME: ${firstNameController.text}");
-                                    context.read<LoginCubit>().loginEdit(
-                                      token: StorageRepository.getString("tokens"),
-                                        name: firstNameController.text,
-                                        phone: phoneController.text,
-                                        username: usernameController.text,
-                                        password: passwordController.text);
-                                  } else {
-                                    showErrorMessage(
-                                        message: "Password is empty!",
-                                        context: context);
-                                  }
-                                } else {
-                                  showErrorMessage(
-                                      message: "Username is empty!",
-                                      context: context);
-                                }
+          return ListView(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 14.w),
+                child: Column(
+                  children: [
+                    104.ph,
+                    const LogoWidget(),
+                    16.ph,
+                    Text(
+                      "Welcome to ParaDox App !!!",
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium!
+                          .copyWith(fontWeight: FontWeight.w700),
+                    ),
+                    16.ph,
+                    Text(
+                      "Login Edit to Continue",
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelLarge!
+                          .copyWith(color: AppColors.passiveTextColor),
+                    ),
+                    32.ph,
+                    GlobalTextField(
+                        hintText: "First name",
+                        controller: firstNameController,
+                        textInputType: TextInputType.text,
+                        textInputAction: TextInputAction.next),
+                    16.ph,
+                    PhoneTextField(
+                      controller: phoneController,
+                    ),
+                    16.ph,
+                    GlobalTextField(
+                      hintText: "Username",
+                      controller: usernameController,
+                      textInputType: TextInputType.text,
+                      textInputAction: TextInputAction.next,
+                    ),
+                    16.ph,
+                    PasswordTextField(
+                        passwordController: passwordController),
+                    42.ph,
+                    ZoomTapAnimation(
+                      onTap: () {
+                        if (firstNameController.text.isNotEmpty) {
+                          if (phoneController.text.isNotEmpty ) {
+                            if (usernameController.text.isNotEmpty) {
+                              if (passwordController.text.isNotEmpty) {
+                                debugPrint("USERNAME: ${usernameController.text}");
+                                debugPrint("PHONE: ${phoneController.text}");
+                                debugPrint("NAME: ${firstNameController.text}");
+                                context.read<LoginCubit>().loginEdit(
+                                  token: StorageRepository.getString("tokens"),
+                                    name: firstNameController.text,
+                                    phone: phoneController.text,
+                                    username: usernameController.text,
+                                    password: passwordController.text);
                               } else {
                                 showErrorMessage(
-                                    message: "Phone Number is empty!",
+                                    message: "Password is empty!",
                                     context: context);
                               }
                             } else {
                               showErrorMessage(
-                                  message: "First Name is empty!",
+                                  message: "Username is empty!",
                                   context: context);
                             }
-                          },
-                          child: const LoginButton(),
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
+                          } else {
+                            showErrorMessage(
+                                message: "Phone Number is empty!",
+                                context: context);
+                          }
+                        } else {
+                          showErrorMessage(
+                              message: "First Name is empty!",
+                              context: context);
+                        }
+                      },
+                      child: const LoginButton(),
+                    )
+                  ],
+                ),
+              )
+            ],
           );
         },
         listener: (context, state) {
@@ -162,7 +157,7 @@ class _LoginEditScreenState extends State<LoginEditScreen> {
             showErrorMessage(message: state.errorText, context: context);
           }
           if (state is LoginEditSuccessState) {
-            Navigator.pop(context);
+            Navigator.pushReplacementNamed(context, RouteNames.loginScreen);
           }
         },
       ),
