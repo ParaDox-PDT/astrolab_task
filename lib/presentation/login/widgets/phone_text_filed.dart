@@ -9,7 +9,7 @@ class PhoneTextField extends StatelessWidget {
       {super.key, required this.controller});
 
   var maskFormatter = MaskTextInputFormatter(
-      mask: '+998#########',
+      mask: '+998 (##) ###-##-##',
       filter: {"#": RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.lazy);
   final TextEditingController controller;

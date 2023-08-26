@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_defualt_project/data/models/user_model/user_model.dart';
 import 'package:flutter_defualt_project/presentation/login/login_edit_screen.dart';
 import 'package:flutter_defualt_project/presentation/login/login_screen.dart';
 import 'package:flutter_defualt_project/presentation/splash/splash_screen.dart';
@@ -26,7 +27,7 @@ class AppRoutes {
         );
       case RouteNames.loginEditScreen:
         return MaterialPageRoute(
-          builder: (context) =>  LoginEditScreen(),
+          builder: (context) =>  LoginEditScreen(userModel: settings.arguments as UserModel,),
         );
       case RouteNames.splashScreen:
         return MaterialPageRoute(

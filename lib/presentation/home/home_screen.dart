@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_defualt_project/cubits/login/login_cubit.dart';
 import 'package:flutter_defualt_project/data/local/storage_repository/storage_repository.dart';
 import 'package:flutter_defualt_project/presentation/app_routes.dart';
+import 'package:flutter_defualt_project/utils/images.dart';
+import 'package:flutter_defualt_project/utils/ui_utils/loading_dialog.dart';
+import 'package:lottie/lottie.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,12 +15,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool isLoading=false;
+
   @override
   void initState() {
     debugPrint("TOKEN: ${StorageRepository.getString("token")}");
     debugPrint("TOKENS: ${StorageRepository.getString("tokens")}");
     super.initState();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         body: BlocConsumer<LoginCubit, LoginState>(
           builder: (context, state) {
-            if (state is LoginLoadingState) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
             return Center(
-              child: TextButton(
+              child: isLoading?Lottie.asset(AppImages.loading):TextButton(
                 child: Text("Log Out"),
                 onPressed: () {
                   context.read<LoginCubit>().logOutUser();
@@ -45,6 +47,11 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           },
           listener: (context, state) {
+            if (state is LoginLoadingState) {
+              setState(() {
+                isLoading=true;
+              });
+            }
             if (state is UnLoggedState) {
               Navigator.pushReplacementNamed(context, RouteNames.loginScreen);
             }

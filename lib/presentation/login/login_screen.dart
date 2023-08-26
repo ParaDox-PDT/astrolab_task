@@ -9,8 +9,11 @@ import 'package:flutter_defualt_project/presentation/login/widgets/password_text
 import 'package:flutter_defualt_project/presentation/widgets/text_field.dart';
 import 'package:flutter_defualt_project/utils/colors.dart';
 import 'package:flutter_defualt_project/utils/extension.dart';
+import 'package:flutter_defualt_project/utils/images.dart';
 import 'package:flutter_defualt_project/utils/ui_utils/error_message_dialog.dart';
+import 'package:flutter_defualt_project/utils/ui_utils/loading_dialog.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -26,6 +29,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   late UserModel userModel;
 
+  bool isLoading=false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,10 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
       body: BlocConsumer<LoginCubit,LoginState>(
         builder: (context, state) {
-          if (state is LoginLoadingState) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          return ListView(
+          return isLoading? Center(child: Lottie.asset(AppImages.loading)):ListView(
             children: [
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 14.w),
@@ -99,14 +101,23 @@ class _LoginScreenState extends State<LoginScreen> {
           );
         },
         listener: (context, state) {
+          if (state is LoginLoadingState) {
+             setState(() {
+               isLoading=true;
+             });
+          }
           if (state is LoginErrorState) {
+            setState(() {
+              isLoading=false;
+            });
             showErrorMessage(message: state.errorText, context: context);
+
           }
           if(state is LoginSuccessHomeState){
             Navigator.pushReplacementNamed(context, RouteNames.homeScreen);
           }
           if (state is LoginSuccessState) {
-            Navigator.pushReplacementNamed(context, RouteNames.loginEditScreen);
+            Navigator.pushReplacementNamed(context, RouteNames.loginEditScreen,arguments: state.universalData.data);
           }
         },
       ),

@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_defualt_project/data/local/storage_repository/storage_repository.dart';
 import 'package:flutter_defualt_project/data/models/universal_response.dart';
+import 'package:flutter_defualt_project/utils/ui_utils/loading_dialog.dart';
 import 'package:meta/meta.dart';
 
 import '../../data/repositories/login_repository.dart';
@@ -39,11 +41,13 @@ class LoginCubit extends Cubit<LoginState> {
     emit(LoginLoadingState());
     UniversalData universalData =
         await authRepository.loginUser(username: username, password: password);
+    late UniversalData universalData2;
     if (universalData.error.isEmpty) {
       if (!universalData.data["status"]) {
         await authRepository
             .putTokenInMain(universalData.data["token"] as String);
-        emit(LoginSuccessState());
+        universalData2 = await authRepository.getUser(token: StorageRepository.getString("tokens"));
+        emit(LoginSuccessState(universalData: universalData2));
       } else {
         await authRepository.putToken(universalData.data["token"] as String);
         emit(LoginSuccessHomeState());
@@ -57,7 +61,7 @@ class LoginCubit extends Cubit<LoginState> {
       {required String name,
       required String phone,
       required String username,
-      required String password,required String token}) async {
+      required String password,required String token,required BuildContext context}) async {
     emit(LoginLoadingState());
     UniversalData universalData = await authRepository.loginEdit(
         name: name, phone: phone, username: username, password: password,token: token);
@@ -69,7 +73,7 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   Future<void> logOutUser() async {
-    emit(LoginLoadingState());
+    // emit(LoginLoadingState());
     bool? isDeleted = await authRepository.deleteToken();
     bool? isDelete = await authRepository.deleteTokens();
     if (isDeleted != null) {
