@@ -16,7 +16,7 @@ class CustomCircularProgressIndicator extends StatelessWidget {
     if (strokeWidth == 4.0 || strokeWidth == null) {
       return const CircularProgressIndicator(
         strokeWidth: 2,
-        valueColor: AlwaysStoppedAnimation<Color>(AppColors.c_3669C9),
+        valueColor: AlwaysStoppedAnimation<Color>(AppColors.c_091227),
       );
     } else {
       return CircularProgressIndicator(

@@ -22,7 +22,7 @@ void showErrorMessage({
         child: Text(
           message,
           style:
-          const TextStyle(fontWeight: FontWeight.w500, color: AppColors.c_273032),
+          const TextStyle(fontWeight: FontWeight.w500, color: AppColors.c_091227),
         ),
       ),
       actions: [
@@ -51,7 +51,7 @@ Future<void> showConfirmMessage({
         child: Text(
           message,
           style:
-          const TextStyle(fontWeight: FontWeight.w500, color: AppColors.c_273032),
+          const TextStyle(fontWeight: FontWeight.w500, color: AppColors.c_EAF0FF),
         ),
       ),
       actions: [
