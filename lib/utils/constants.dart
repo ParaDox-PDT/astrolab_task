@@ -1,4 +1,4 @@
-const baseUrl = "https://e-work.up.railway.app";
+const baseUrl = "https://api.dictionaryapi.dev/api/v2/entries/en/";
 
 
 class TimeOutConstants {

@@ -1,9 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_defualt_project/data/local/storage_repository/storage_repository.dart';
-import 'package:flutter_defualt_project/data/models/user_model/post_user_model.dart';
-import 'package:flutter_defualt_project/data/models/user_model/user_model.dart';
-
+import 'package:flutter_defualt_project/data/models/definition/info_model.dart';
 import '../../utils/constants.dart';
 import '../models/universal_response.dart';
 
@@ -45,19 +42,13 @@ class ApiService {
     );
   }
 
-  //--------------------------------Login---------------------------------------
-
-  Future<UniversalData> loginUser(
-      {required String username, required String password}) async {
+//-----------------------GET DEFINITION------------------------------------
+  Future<UniversalData> getDefinition({required String word})async{
     Response response;
     try {
-      response = await _dio.post("/auth/login",
-          data: {"username": username, "password": password});
+      response = await _dio.get(word);
       if ((response.statusCode! >= 200) && (response.statusCode! < 300)) {
-        return UniversalData(data: {
-          "token": response.data["token"],
-          "status": response.data["status"]
-        });
+        return UniversalData(data: InfoModel.getFromList(response.data as List?));
       }
       return UniversalData(error: "Other Error");
     } on DioException catch (e) {
@@ -71,63 +62,4 @@ class ApiService {
     }
   }
 
-  Future<UniversalData> loginEdit(
-      {required String name,
-      required String phone,
-      required String username,
-      required String password,
-      required String token}) async {
-    Response response;
-    try {
-      response = await _dio.post("/auth/users/first/edit",
-          options: Options(
-            headers: {
-              "Authorization": "Bearer $token",
-              "Content-Type": "application/json"
-            },
-          ),
-          data: {
-            "name": name,
-            "phone": phone,
-            "username": username,
-            "password": password
-          });
-      if ((response.statusCode! >= 200) && (response.statusCode! < 300)) {
-        return UniversalData(data: PostUserModel.fromJson(response.data));
-      }
-      return UniversalData(error: "Other Error");
-    } on DioException catch (e) {
-      if (e.response != null) {
-        return UniversalData(error: e.response!.data["error"].toString());
-      } else {
-        return UniversalData(error: e.message!);
-      }
-    } catch (error) {
-      return UniversalData(error: error.toString());
-    }
-  }
-
-  Future<UniversalData> getUser({required String token}) async {
-    Response response;
-    try {
-      debugPrint("TOKEN: $token");
-      response = await _dio.get("/auth/users/me",
-          options: Options(headers: {
-            "Authorization": "Bearer $token",
-            "Content-Type": "application/json"
-          }));
-      if ((response.statusCode! >= 200) && (response.statusCode! < 300)) {
-        return UniversalData(data: UserModel.fromJson(response.data));
-      }
-      return UniversalData(error: "Other Error");
-    } on DioException catch (e) {
-      if (e.response != null) {
-        return UniversalData(error: e.response!.data["detail"]);
-      } else {
-        return UniversalData(error: e.message!);
-      }
-    } catch (error) {
-      return UniversalData(error: error.toString());
-    }
-  }
 }
