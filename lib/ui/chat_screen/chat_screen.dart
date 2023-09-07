@@ -17,19 +17,19 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.black45,
         leading: const Icon(Icons.arrow_back_ios_new, color: Colors.blue,),
         title: const Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Farrux Madaminov", style: TextStyle(
+              Text("ParaDox PDT", style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 17,
                 color: Colors.black
               ),),
-              Text("last seen just now", style: TextStyle(
+              Text("17:35", style: TextStyle(
                 fontWeight: FontWeight.w400,
                 fontSize: 13,
                 color: Colors.white
@@ -42,7 +42,7 @@ class _ChatScreenState extends State<ChatScreen> {
             padding: const EdgeInsets.all(3.0),
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(100),
-                child: Image.asset("assets/images/profile.webp",fit: BoxFit.cover,)),
+                child: Image.asset("assets/images/profile.png",fit: BoxFit.cover,)),
           ),
           const SizedBox(width: 8,)
         ],
@@ -52,7 +52,7 @@ class _ChatScreenState extends State<ChatScreen> {
           SizedBox(
             height: double.infinity,
             width: double.infinity,
-            child: Image.asset("assets/images/image.jpeg", fit: BoxFit.cover,),
+            child: Image.asset("assets/images/image.png", fit: BoxFit.cover,),
           ),
           ListView(
             children: List.generate(filesData.length, (index) {

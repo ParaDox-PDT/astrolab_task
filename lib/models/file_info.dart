@@ -42,7 +42,7 @@ class FileInfo extends Equatable {
 
 List<FileInfo> filesData = [
   const FileInfo(
-    fileName: "Sherali Jo'rayev",
+    fileName: "Maqom",
     fileUrl: "http://www.classicmusic.uz/media/Shashmaqom/history-&-modernity_1/The%20Keepers%20of%20Maqom%20traditions.wmv",
     progress: 0.0,
     memory: 78,
@@ -87,4 +87,22 @@ List<FileInfo> filesData = [
     memory: 0.05,
     time: "07:50"
   ),
+  const FileInfo(
+      progress: 0.0,
+      fileName: "Tree photo",
+      fileUrl:
+      "https://w.forfun.com/fetch/75/75ef8e9243bf693f6532d171c562eff4.jpeg",
+      memory: 13.5,
+      time: "07:55"
+  ),const FileInfo(
+      progress: 0.0,
+      fileName: "Grim",
+      fileUrl:
+      "http://fayllar1.ru/23/Seriallar/Grim/Grim%20f01q08-qism%20AQSH%20seriali%20O'zbek%20tilida%20(asilmedia.net).m4v",
+      memory: 1024,
+      time: "07:55"
+  ),
+
+
+
 ];
