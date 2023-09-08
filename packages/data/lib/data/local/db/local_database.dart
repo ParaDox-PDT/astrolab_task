@@ -1,7 +1,8 @@
 
-import 'package:flutter_defualt_project/data/models/user_model/user_model.dart';
+import 'package:data/data/models/student/student_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+
 
 class LocalDatabase{
   static final LocalDatabase getInstance = LocalDatabase._init();
@@ -36,58 +37,60 @@ class LocalDatabase{
 
 
     await db.execute('''
-    CREATE TABLE ${UserFields.userTable}(
-    ${UserFields.id} $idType,
-    ${UserFields.age} $intType,
-    ${UserFields.firstName} $textType,
-    ${UserFields.lastName} $textType,
-    ${UserFields.gender} $textType,
-    ${UserFields.jobTitle} $textType
+    CREATE TABLE ${StudentField.studentTable}(
+    ${StudentField.id} $idType,
+    ${StudentField.course} $intType,
+    ${StudentField.averageScore} $intType,
+    ${StudentField.gender} $textType,
+    ${StudentField.avatar} $textType,
+    ${StudentField.contact} $textType,
+    ${StudentField.studentName} $textType
     )
     ''');
   }
 
-  static Future<UserModel> insertUser(
-      UserModel userModel) async {
+  static Future<StudentModel> insertStudent(
+      StudentModel studentModel) async {
     final db = await getInstance.database;
     final int id = await db.insert(
-        UserFields.userTable, userModel.toJson());
-    return userModel.copyWith(id: id);
+        StudentField.studentTable, studentModel.toJson());
+    return studentModel.copyWith(id: id);
   }
 
-  static Future<List<UserModel>> getAllUsers() async {
-    List<UserModel> allUsers = [];
+  static Future<List<StudentModel>> getAllStudents() async {
+    List<StudentModel> allUsers = [];
     final db = await getInstance.database;
-    allUsers = (await db.query(UserFields.userTable))
-        .map((e) => UserModel.fromJson(e))
+    allUsers = (await db.query(StudentField.studentTable))
+        .map((e) => StudentModel.fromJson(e))
         .toList();
 
     return allUsers;
   }
 
-  static updateUser({required UserModel userModel}) async {
+  static updateStudent({required StudentModel studentModel,required int id}) async {
     final db = await getInstance.database;
+    print("${studentModel.toJson()}");
     db.update(
-      UserFields.userTable,
-      userModel.toJson(),
-      where: "${UserFields.id} = ?",
-      whereArgs: [userModel.id],
-    );
-  }
-
-  static deleteUser(int id) async {
-    final db = await getInstance.database;
-    db.delete(
-      UserFields.userTable,
-      where: "${UserFields.id} = ?",
+      StudentField.studentTable,
+      studentModel.toJson(),
+      where: "${StudentField.id} = ?",
       whereArgs: [id],
     );
   }
 
-  static deleteAllUsers() async {
+  static deleteStudent(int id) async {
     final db = await getInstance.database;
     db.delete(
-      UserFields.userTable,
+      StudentField.studentTable,
+      where: "${StudentField.id} = ?",
+      whereArgs: [id],
+    );
+  }
+
+  static deleteAllStudent() async {
+    final db = await getInstance.database;
+    db.delete(
+      StudentField.studentTable,
     );
   }
 

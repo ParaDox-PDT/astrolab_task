@@ -1,12 +1,13 @@
+import 'package:data/data/local/db/local_database.dart';
+import 'package:data/data/local/storage_repository/storage_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_defualt_project/blocs/user_bloc/user_bloc.dart';
-import 'package:flutter_defualt_project/data/local/db/local_database.dart';
-import 'package:flutter_defualt_project/data/repositories/user_repository.dart';
+import 'package:flutter_defualt_project/bloc/student/student_bloc.dart';
+
 import 'package:flutter_defualt_project/presentation/app_routes.dart';
 import 'package:flutter_defualt_project/utils/theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'data/local/storage_repository/storage_repository.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,20 +26,13 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiRepositoryProvider(
+    return MultiBlocProvider(
       providers: [
-        RepositoryProvider(
-          create: (context) => UserRepository(),
-        )
+        BlocProvider(
+          create: (context) => StudentBloc()
+        ),
       ],
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => UserBloc(userRepository: context.read<UserRepository>())
-          ),
-        ],
-        child: const MyApp(),
-      ),
+      child: const MyApp(),
     );
   }
 }
