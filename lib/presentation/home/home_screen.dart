@@ -31,9 +31,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         systemOverlayStyle:
-            SystemUiOverlayStyle(statusBarColor: Colors.blueAccent),
+            const SystemUiOverlayStyle(statusBarColor: Colors.blueAccent),
         backgroundColor: Colors.blueAccent,
-        title: Text(
+        title: const Text(
           "Students Screen",
           style: TextStyle(color: Colors.black),
         ),
@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () {
               Navigator.pushNamed(context, RouteNames.addScreen);
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.add,
               size: 30,
               color: Colors.black,
@@ -71,8 +71,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 10.h),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16.r),
-                        color: AppColors.c_3669C9,
-                        boxShadow: [
+                        // color: AppColors.c_3669C9,
+                        gradient: const LinearGradient(colors: [AppColors.c_3669C9,AppColors.c_7CB1FF],begin: Alignment.centerLeft,end: Alignment.centerRight),
+                        boxShadow: const [
                           BoxShadow(
                               color: Colors.black45,
                               blurRadius: 4,

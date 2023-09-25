@@ -62,7 +62,6 @@ class StudentModel {
 
   Map<String, dynamic> toJson() {
     return {
-      "id":id,
       "studentName": studentName,
       "contact": contact,
       "averageScore": averageScore,
