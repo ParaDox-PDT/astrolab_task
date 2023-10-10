@@ -9,5 +9,6 @@ class AppImages{
   static const String sway="assets/images/sway.png";
   static const String tchk="assets/images/tchk.png";
   static const String vdx="assets/images/vdoxnovenie.png";
+  static const String logo="assets/images/logo.png";
 
 }

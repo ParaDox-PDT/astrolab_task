@@ -132,10 +132,9 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
               6.ph,
               Text(
                 widget.name[index],
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    fontWeight: FontWeight.w500,
+                style: TextStyle(fontWeight: FontWeight.w500,
                     color: AppColors.passiveTextColor,
-                    fontSize: 18.sp),
+                    fontSize: 18.sp,fontFamily: "Gilroy"),
               ),
               36.ph,
               Padding(
@@ -184,15 +183,13 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
                 children: [
                   Text(
                     "${currentDuration.inSeconds ~/ 60}:${currentDuration.inSeconds % 60}",
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.passiveTextColor),
+                    style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.w400,
+                        color: AppColors.passiveTextColor,fontFamily: "Gilroy"),
                   ),
                   Text(
                     "${duration.inSeconds ~/ 60}:${duration.inSeconds % 60}",
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.passiveTextColor),
+                    style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.w400,
+                        color: AppColors.passiveTextColor,fontFamily: "Gilroy"),
                   )
                 ],
               ),

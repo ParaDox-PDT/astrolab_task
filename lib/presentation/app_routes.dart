@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_defualt_project/presentation/music_list/music_list.dart';
 import 'package:flutter_defualt_project/presentation/music_player/music_player_screen.dart';
+import 'package:flutter_defualt_project/presentation/splash/splash_screen.dart';
 
 
 class RouteNames {
-  static const String musicList = "/";
+  static const String musicList = "/musicList";
   static const String musicPlayer = "/music_player";
+  static const String splashScreen = "/";
 
 }
 
@@ -15,6 +17,10 @@ class AppRoutes {
       case RouteNames.musicList:
         return MaterialPageRoute(
           builder: (context) => const MusicList(),
+        );
+      case RouteNames.splashScreen:
+        return MaterialPageRoute(
+          builder: (context) => const SplashScreen(),
         );
       case RouteNames.musicPlayer:
         return MaterialPageRoute(
