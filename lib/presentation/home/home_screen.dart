@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_defualt_project/presentation/app_routes.dart';
 
 import 'package:flutter_defualt_project/utils/colors.dart';
 import 'package:flutter_defualt_project/utils/extension.dart';
@@ -59,7 +60,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 ZoomTapAnimation(
-                  onTap: (){},
+                  onTap: (){
+                    Navigator.pushNamed(context, RouteNames.addScreen);
+                  },
                   child: Container(
                     padding:
                         EdgeInsets.symmetric(horizontal: 10.w, vertical: 16.h),

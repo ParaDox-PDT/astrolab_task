@@ -12,12 +12,19 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   ProductBloc() : super(ProductInitial()) {
     on<ProductAddEvent>(_addProduct);
     on<ProductGetEvent>(_getProduct);
-    on<ProductSellEvent>(_sellProduct);
     on<ProductCountUpdateEvent>(_updateProductCount);
     on<ProductSellEvent>(_sellProduct);
+    on<ProductQrCodeChange>(_changeQrCode);
   }
 
   late ProductModel productModel;
+  String qrCode="";
+
+  _changeQrCode(ProductQrCodeChange event, Emitter<ProductState> emit){
+    qrCode = event.qrCode;
+    emit(ProductSuccessUpdate());
+    emit(ProductInitial());
+  }
 
   _addProduct(ProductAddEvent event, Emitter<ProductState> emit) async {
     await LocalDatabase.insertProduct(event.productModel);

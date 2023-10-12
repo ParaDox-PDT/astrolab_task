@@ -42,3 +42,11 @@ class ProductGetEvent extends ProductEvent{
   @override
   List<Object?> get props => [qrCode];
 }
+
+class ProductQrCodeChange extends ProductEvent{
+  final String qrCode;
+
+  ProductQrCodeChange({required this.qrCode});
+  @override
+  List<Object?> get props => [qrCode];
+}

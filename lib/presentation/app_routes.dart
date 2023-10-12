@@ -4,6 +4,7 @@ import 'package:flutter_defualt_project/presentation/home/subscreens/sell_produc
 import 'package:flutter_defualt_project/presentation/splash/splash_screen.dart';
 
 import 'home/home_screen.dart';
+import 'home/subscreens/add_product/qr_screen.dart';
 
 
 class RouteNames {
@@ -11,6 +12,7 @@ class RouteNames {
   static const String splashScreen = "/";
   static const String addScreen = "/add";
   static const String sellScreen = "/sell";
+  static const String qr = "/qr";
 }
 
 class AppRoutes {
@@ -19,6 +21,10 @@ class AppRoutes {
       case RouteNames.homeScreen:
         return MaterialPageRoute(
           builder: (context) => const HomeScreen(),
+        );
+      case RouteNames.qr:
+        return MaterialPageRoute(
+          builder: (context) => const QRViewExample(),
         );
       case RouteNames.splashScreen:
         return MaterialPageRoute(
