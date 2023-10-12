@@ -26,14 +26,11 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.blueAccent,
       ),
       body: ReorderableListView(
-        physics: const BouncingScrollPhysics(),
+        physics:const BouncingScrollPhysics(),
         children: [
           ...List.generate(
             users.length,
             (index) => Dismissible(
-              background: Container(
-                color: Colors.red,
-              ),
               key: ValueKey(users[index].name),
               child: Column(
                 key: ValueKey(index),

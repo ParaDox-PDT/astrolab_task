@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_defualt_project/presentation/screenshot/screenshot_screen.dart';
 
 
 import 'home/home_screen.dart';
 
 
 class RouteNames {
-  static const String homeScreen = "/";
+  static const String homeScreen = "/home";
+  static const String screenshot = "/";
 
 
 }
@@ -16,6 +18,10 @@ class AppRoutes {
       case RouteNames.homeScreen:
         return MaterialPageRoute(
           builder: (context) => const HomeScreen(),
+        );
+      case RouteNames.screenshot:
+        return MaterialPageRoute(
+          builder: (context) => const ScreenshotScreen(),
         );
       default:
         return MaterialPageRoute(
