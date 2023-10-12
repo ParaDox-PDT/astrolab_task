@@ -45,7 +45,7 @@ class LocalDatabase{
     ''');
   }
 
-  static Future<ProductModel> insertContact(
+  static Future<ProductModel> insertProduct(
       ProductModel productModel) async {
     final db = await getInstance.database;
     final int id = await db.insert(
@@ -53,7 +53,7 @@ class LocalDatabase{
     return productModel.copyWith(id: id);
   }
 
-  static updateContactName({required String qrCode, required int count}) async {
+  static updateProductCount({required String qrCode, required int count}) async {
     final db = await getInstance.database;
     db.update(
       ProductModelFields.table,
@@ -63,7 +63,7 @@ class LocalDatabase{
     );
   }
 
-  static updateInfo({required ProductModel productModel}) async {
+  static updateProduct({required ProductModel productModel}) async {
     final db = await getInstance.database;
     db.update(
       ProductModelFields.table,
@@ -73,7 +73,7 @@ class LocalDatabase{
     );
   }
 
-  static Future<ProductModel> getSingleContact(String qrCode) async {
+  static Future<ProductModel> getSingleProduct(String qrCode) async {
     List<ProductModel> allInfo = [];
     final db = await getInstance.database;
     allInfo = (await db.query(

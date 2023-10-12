@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_defualt_project/bloc/product/product_bloc.dart';
 
 import 'package:flutter_defualt_project/presentation/app_routes.dart';
 import 'package:flutter_defualt_project/utils/theme.dart';
@@ -10,7 +11,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await StorageRepository.getInstance();
 
-  runApp(App());
+  runApp(const App());
 }
 
 class App extends StatelessWidget {
@@ -20,12 +21,11 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiRepositoryProvider(
-      providers: [],
-      child: MultiBlocProvider(
-        providers: [],
-        child: const MyApp(),
-      ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => ProductBloc()),
+      ],
+      child: const MyApp(),
     );
   }
 }
