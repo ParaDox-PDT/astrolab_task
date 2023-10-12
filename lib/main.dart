@@ -1,45 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_defualt_project/cubits/login/login_cubit.dart';
-import 'package:flutter_defualt_project/data/network/api_service.dart';
+
 import 'package:flutter_defualt_project/presentation/app_routes.dart';
 import 'package:flutter_defualt_project/utils/theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'data/local/storage_repository/storage_repository.dart';
-import 'data/repositories/login_repository.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await StorageRepository.getInstance();
 
-  runApp(
-    App(
-      apiService: ApiService(),
-    ),
-  );
+  runApp(App());
 }
 
 class App extends StatelessWidget {
-  const App({super.key, required this.apiService});
-
-  final ApiService apiService;
+  const App({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
-      providers: [
-        RepositoryProvider(
-          create: (context) => AuthRepository(apiService: apiService),
-        )
-      ],
+      providers: [],
       child: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => LoginCubit(
-              authRepository: context.read<AuthRepository>(),
-            ),
-          ),
-        ],
+        providers: [],
         child: const MyApp(),
       ),
     );
